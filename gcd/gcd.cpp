@@ -5,25 +5,26 @@
  *      Author: evan
  */
 #include <iostream>
+#include <sstream>
 using namespace std;
 
-int gcdr(int x, int y){
-		if(x==0){return y;}
-		else if(y==0){return x;}
+int gcdr(int m, int n){
+		if(m==0){return n;}
+		if(n==0){return m;}
 		else{
-			if(x>y){gcdr(y, x%y);}
-			else{gcdr(x, y%x);}
+			if(m>n){return gcdr(n, m%n);}
+			else{return gcdr(m, n%m);}
 		}
-		return 0;
+
 	}
 
-int gcdi(int x, int y){
-	while(x!=0 && y!=0){
-		if(x>y){x=x%y;}
-		else{y=y%x;}
+int gcdi(int m, int n){
+	while(m!=0 && n!=0){
+		if(m>n){m=m%n;}
+		else{n=n%m;}
 	}
-	if(x==0){return y;}
-	else{return x;}
+	if(m==0){return n;}
+	else{return m;}
 }
 
 int main(int argc, char *argv[]){
@@ -32,18 +33,26 @@ int main(int argc, char *argv[]){
 		return 1;
 	}
 
-	int x;
-	istringstream ss(argv[1]);
-	if(!(ss >> x)){
-		cerr << "Invalid Entry" << argv[1] << "\n";
-	}
-	istringstream ss(argv[2]);
-		if(!(ss >> x)){
-			cerr << "Invalid Entry" << argv[2] << "\n";
+	int m;
+	istringstream iss;
+	iss.str(argv[1]);
+	if (!(iss >> m)){
+		cerr << "Error: The first argument is not a valid integer.";
+		return 1;
 		}
 
-	gcdr(argv[1],argv[2]);
-	gcdi(argv[1], argv[2]);
+	int n;
+	iss.clear();
+	iss.str(argv[2]);
+	if (!(iss >> n)){
+		cerr << "Error: The second argument is not a valid integer.";
+		return 1;
+		}
+
+
+	cout << "Iterative: gcd(" << m << ", " << n << ") = " << gcdi(m,n) << endl;
+	cout << "Recursive: gcd(" << m << ", " << n << ") = " << gcdr(m,n) << endl;
+
 	return 0;
 }
 
