@@ -1,4 +1,5 @@
 /*
+//i pledge my honor that i have abided by the stevens honor system -Evan Bedser
  * gcd.cpp
  *
  *  Created on: Sep 1, 2016
